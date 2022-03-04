@@ -25,9 +25,18 @@ if (isset($_POST['update'])){
   	$identity_document=$_POST['identity_document'];
   	$address=$_POST['address'];
   	$phone=$_POST['phone'];
-  	$photos=addslashes(file_get_contents($_FILES['photos']['tmp_name']));
+  	echo $_FILES['photos']['tmp_name'];
+  	if($_FILES['photos']['tmp_name'] != null){
+  		$photos=addslashes(file_get_contents($_FILES['photos']['tmp_name']));
+  	}
 
-  	$query="update data_employees set name ='$name',last_name='$last_name',identity_document='$identity_document',address='$address',phone='$phone',photos='$photos' where id=$id";
+  	$query="update data_employees set name ='$name',last_name='$last_name',identity_document='$identity_document',address='$address',phone='$phone'";
+
+  	if($_FILES['photos']['tmp_name'] != null){
+		$query= $query." ,photos='$photos'";
+	}
+
+  	$query= $query." where id=$id";
   	
   	mysqli_query($conexion,$query);
 
@@ -45,33 +54,33 @@ if (isset($_POST['update'])){
 		<div class="col-md-4 mx-auto">
 			<div class="card card-body">
 				<form action="edit_task.php?id=<?php echo $_GET['id']; ?>" method="POST" enctype="multipart/form-data">
-					<div class="form-group">
-						<input type="text" name="name" value="<?php echo $name; ?>" class="form-control" placeholder="update name">
-					</div></br>
-					<div class="form-group">
-						<input type="text" name="last_name" value="<?php echo $last_name; ?>" class="form-control" placeholder="update last name">
-					</div>
-					</br>
-					<div class="form-group">
-						<input type="text" name="identity_document" value="<?php echo $identity_document; ?>" class="form-control" placeholder="update identity document">
-					</div>
-					</br>
-					<div class="form-group">
-						<input type="text" name="address" value="<?php echo $address; ?>" class="form-control" placeholder="update address">
-					</div>
-					</br>
-						<div class="form-group">
-						<input type="text" name="phone" value="<?php echo $phone; ?>" class="form-control" placeholder="update phone">
-					</div>
+					<table>
+					<td>Name</td><td><div class="form-group">
+						<input type="text" name="name" value="<?php echo $name; ?>" class="form-control" placeholder="Name" style="text-align:right">
+					</div></td><tr><th></th></tr>
+					<td>Last Name</td><td><div class="form-group">
+						<input type="text" name="last_name" value="<?php echo $last_name; ?>" class="form-control" placeholder="Last Name" style="text-align:right">
+					</div></td><tr><th></th></tr>
+					<td>Identity Document</td><td><div class="form-group">
+						<input type="text" name="identity_document" value="<?php echo $identity_document; ?>" class="form-control" placeholder="Identity Document" style="text-align:right">
+					</div></td><tr><th></th></tr>
+					<td>Address</td><td><div class="form-group">
+						<input type="text" name="address" value="<?php echo $address; ?>" class="form-control" placeholder="Address" style="text-align:right">
+					</div></td><tr><th></th></tr>
+					<td>Phone</td><td><div class="form-group">
+						<input type="text" name="phone" value="<?php echo $phone; ?>" class="form-control" placeholder="Phone" style="text-align:right">
+					</div></td><tr><th></th></tr>
 				 	</br>
 					<div>
+						</table>
+						<br>
 						<td><center><img height="70px" src="data:image/jpg;base64,<?php echo base64_encode($row['photos']); ?>"/></center></td>
 					</div>
 					<br>
 
  				 	<div class="form-group">
  					 	<label for="Photo" class="col-sm-2 control-label">Photo</label>
- 					 	<input type="file" required class="form-control" name="photos" accept="image/*">
+ 					 	<input type="file" class="form-control" name="photos" accept="image/*">
  				 	</div>
  				
 					</br>

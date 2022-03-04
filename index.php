@@ -16,38 +16,40 @@
  			</div>
  		<?php session_unset();} ?>
 
+
+
  		<div class="card card-body">
  			<form action="save_task.php" method="POST" enctype="multipart/form-data"> 
  				<div class="form-group">
- 					<input type="text" required name="name" class="form-control" placeholder="Name" autofocus>
+ 					<input type="text"  name="name" class="form-control" placeholder="Name" required autofocus>
 
  				</div>
  				<br>
 
  				<div class="form-group">
- 					<input type="text" required name="last_name" class="form-control" placeholder="Last Name" autofocus>
+ 					<input type="text"  name="last_name" class="form-control" placeholder="Last Name" required autofocus>
 
  			 	</div>
  				<br>
 
  				<div class="form-group">
- 					<input type="int" required name="identity_document" class="form-control" placeholder="Identity Document" autofocus>
+ 					<input type="int"  name="identity_document" class="form-control" placeholder="Identity Document" required autofocus>
  				</div>
  				<br>
 
  				<div class="form-group">
- 					<input type="int" required name="address" class="form-control" placeholder="Address" autofocus>
+ 					<input type="int"  name="address" class="form-control" placeholder="Address" required autofocus>
  				</div>
  				<br>
 
  				<div class="form-group">
- 					<input type="int" required name="phone" class="form-control" placeholder="Phone" autofocus>
+ 					<input type="int"  name="phone" class="form-control" placeholder="Phone" required autofocus>
  				</div>
  				<br>
 
  				<div class="form-group">
  					<label for="Photo" class="col-sm-2 control-label">Photo</label>
- 					<input type="file" required class="form-control" name="photos" accept="image/*">
+ 					<input type="file" class="form-control" name="photos" accept="image/*" required>
  				</div>
  				<br>
 
@@ -59,14 +61,32 @@
  				<input type="submit" class="btn btn-success btn-block" name="save_task" value="Save">
  			</form>
 
+
  		</div>
+
 
  	</div>	
 
+
  	    <div class="col-md-8">
 
+ 	    	<div>
+ 			<form action="" method="POST" lign="right">
+ 				<div class="row">
+     		 	 	<div class="col-10">
+ 				 		<input type="text"  name="searchtext" class="form-control" placeholder="search name" autofocus >
+ 				 	</div>
+ 					<div class="col-2">
+ 						<input type="submit" class="btn btn-success btn-block" name="search" value="search">
+ 					</div>
+ 				</div>
+ 			</form>
+ 		 	</div>
+ 	    	
+ 	    	
+
  	    <table class="table table-bordered">
- 	    	<thead>
+ 	    	<thead class="bg-success" style="color:#FFF;">
  	    		<tr>
  	    			<th>Id</th>
  	    			<th>Name</th>
@@ -82,7 +102,17 @@
 
  	    	<tbody>
  	    		<?php
- 					$query="select * from data_employees";
+
+ 					$query="select * from data_employees where 1=1 ";
+ 					$filtro=null;
+ 					if(isset($_POST['searchtext'])){
+        				$filtro=$_POST['searchtext'];
+ 					}
+
+ 					if($filtro != null){
+ 						$query= $query." AND name like ('%".$filtro."%')";
+ 					}
+
  					$result_task=mysqli_query($conexion,$query);
 
  					while ($row=mysqli_fetch_array($result_task)) { ?>
