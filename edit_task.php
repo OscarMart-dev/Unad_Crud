@@ -4,6 +4,8 @@ include("db.php");
 
 if(isset($_GET['id'])){
 
+//query para obtener la información del empleado a editar
+
 	$id=$_GET['id'];
  	$query="Select * from data_employees where id=$id";
  	$result=mysqli_query($conexion,$query);
@@ -17,6 +19,9 @@ if(isset($_GET['id'])){
 
  	}
 }
+
+
+//update para actualizar la información que se haya modificado dentro del formulario
 
 if (isset($_POST['update'])){
   	$id=$_GET['id'];
@@ -46,6 +51,7 @@ if (isset($_POST['update'])){
 }
 ?>
 
+<!--Formulario actualización empleado </div>-->
 
 <?php include("includes/header.php") ?>
 

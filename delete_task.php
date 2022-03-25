@@ -2,6 +2,8 @@
 
 include("db.php");
 
+//Delete para borrar un empleado segun el id seleccionado
+
 if (isset($_GET['id'])){
 
 	$id=$_GET['id'];

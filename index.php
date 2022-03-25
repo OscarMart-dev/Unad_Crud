@@ -16,7 +16,7 @@
  			</div>
  		<?php session_unset();} ?>
 
-
+ 				<!--comment sección para ingreso de datos -->
 
  		<div class="card card-body">
  			<form action="save_task.php" method="POST" enctype="multipart/form-data"> 
@@ -53,11 +53,7 @@
  				</div>
  				<br>
 
- 				<!--comment
- 				<div class="form-group">
- 					<textarea name="descripcion" rows="2" class="form-control" placeholder="task description"></textarea>
- 					<br>
- 				</div>-->
+ 				
  				<input type="submit" class="btn btn-success btn-block" name="save_task" value="Save">
  			</form>
 
@@ -67,7 +63,7 @@
 
  	</div>	
 
-
+ 		<!--comment Botón buscar </div>-->
  	    <div class="col-md-8">
 
  	    	<div>
@@ -84,7 +80,7 @@
  		 	</div>
  	    	
  	    	
-
+ 		<!--comment sección listado de información </div>-->
  	    <table class="table table-bordered">
  	    	<thead class="bg-success" style="color:#FFF;">
  	    		<tr>
@@ -103,15 +99,20 @@
  	    	<tbody>
  	    		<?php
 
+ 					//select para obtener el listado de empleados
  					$query="select * from data_employees where 1=1 ";
  					$filtro=null;
  					if(isset($_POST['searchtext'])){
         				$filtro=$_POST['searchtext'];
  					}
+ 					
+ 					//filtro para buscar por nombre en el listado
 
  					if($filtro != null){
  						$query= $query." AND name like ('%".$filtro."%')";
  					}
+
+ 					//muestra los resultados obtenidos por el query
 
  					$result_task=mysqli_query($conexion,$query);
 

@@ -11,6 +11,8 @@ if (isset($_POST['save_task'])){
 	$phone =$_POST['phone'];
 	$photos=addslashes(file_get_contents($_FILES['photos']['tmp_name']));
 
+//query para ingresar un nuevo empleado
+	
 	$query="INSERT INTO data_employees(name,last_name,identity_document,address,phone,photos)VALUES ('$name','$last_name','$identity_document','$address','$phone','$photos')";
 
 	$result=mysqli_query($conexion,$query);
